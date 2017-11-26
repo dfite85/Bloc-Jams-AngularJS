@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (function() {
     function config($stateProvider, $locationProvider) {
         $locationProvider
@@ -28,3 +29,6 @@
         .module('blocJams', ['ui.router'])
         .config(config);
 })();
+=======
+angular.module('blocJams', []);
+>>>>>>> 4cfe721d1a4c52e0611ec12a13a50d1f5d5c3b99
