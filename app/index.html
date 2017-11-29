@@ -1,32 +1,50 @@
-<!DOCTYPE html>
-<html ng-app="blocJams">
+ <!DOCTYPE html>
 
-    <head lang="en">
-        <meta charset="UTF-8">
-        <title>Bloc Jams Angular</title>
+<html ng-app="blocJams">
+ <head lang="en">
+  <meta charset="UTF-8">
+    <title>Bloc Jams Angular</title>
+        <title>Bloc Jams</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,800,600,700,300">
-        <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800,600,700,300">
+        <link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" type="text/css" href="styles/normalize.css">
         <link rel="stylesheet" type="text/css" href="styles/main.css">
         <link rel="stylesheet" type="text/css" href="styles/landing.css">
         <link rel="stylesheet" type="text/css" href="styles/collection.css">
         <link rel="stylesheet" type="text/css" href="styles/album.css">
         <link rel="stylesheet" type="text/css" href="styles/player_bar.css">
-    </head>
-    <body class="landing">
-        <nav class="navbar">
-            <a ui-sref="landing.html" class="logo">
-                <img src="assets/images/bloc_jams_logo.png" alt="bloc jams logo">
-            </a>
-            <div class="links-container">
-                <a ui-sref="collection.html" class="navbar-link">Collection</a>
-            </div>
-        </nav>
+ </head>
+ <body>
+    <nav class="navbar">
+        <a ui-sref="landing" class="logo">                                          <!-- 404 for landing -->
+            <img src="assets/images/bloc_jams_logo.png" alt="bloc jams logo">
+        </a>
+        <div class="links-container">
+            <a ui-sref="collection" class="navbar-link">collection</a>              <!-- 404 for collection-->
+        </div>
+    </nav>
+    <ui-view></ui-view>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+    <script src="/scripts/app.js"></script>                                        <!--this path seems correct but still get a 404 error-->
+     
 
-        <ui-view></ui-view>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
-        <script src="scripts/app.js"></script>
-    </body>
-</html>
+ </body>
+ </html>
+
+
+<!-- ERROR 
+angular.js:38 Uncaught Error: [$injector:modulerr] http://errors.angularjs.org/1.6.4/$injector/modulerr?p0=blocJams&p1=Error%3A%20%5B%24injector%3Anomod%5D%20http%3A%2F%2Ferrors.angularjs.org%2F1.6.4%2F%24injector%2Fnomod%3Fp0%3DblocJams%0A%20%20%20%20at%20https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.4%2Fangular.min.js%3A6%3A425%0A%20%20%20%20at%20https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.4%2Fangular.min.js%3A26%3A270%0A%20%20%20%20at%20b%20(https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.4%2Fangular.min.js%3A25%3A299)%0A%20%20%20%20at%20https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.4%2Fangular.min.js%3A26%3A44%0A%20%20%20%20at%20https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.4%2Fangular.min.js%3A42%3A117%0A%20%20%20%20at%20q%20(https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.4%2Fangular.min.js%3A7%3A495)%0A%20%20%20%20at%20g%20(https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.4%2Fangular.min.js%3A41%3A476)%0A%20%20%20%20at%20eb%20(https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.4%2Fangular.min.js%3A46%3A44)%0A%20%20%20%20at%20c%20(https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.4%2Fangular.min.js%3A21%3A373)%0A%20%20%20%20at%20Sc%20(https%3A%2F%2Fajax.googleapis.com%2Fajax%2Flibs%2Fangularjs%2F1.6.4%2Fangular.min.js%3A22%3A179)
+    at angular.js:38
+    at angular.js:4920
+    at q (angular.js:403)
+    at g (angular.js:4880)
+    at eb (angular.js:4802)
+    at c (angular.js:1914)
+    at Sc (angular.js:1935)
+    at ue (angular.js:1820)
+    at angular.js:33367
+    at HTMLDocument.b (angular.js:3431)
+
+-->
