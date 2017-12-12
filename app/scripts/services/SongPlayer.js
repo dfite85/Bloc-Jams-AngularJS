@@ -1,18 +1,14 @@
 (function() {
-    function SongPlayer(Fixtures) {
+    function SongPlayer($rootScope, Fixtures) {
         var SongPlayer = {};
-        
-        var currentAlbum = Fixtures.getAlbum();
 
-//        @desc Buzz object audio file
-//        @type {Object}
-        
+        var currentAlbum = Fixtures.getAlbum();
+ 
         var currentBuzzObject = null;
-               
+
         var setSong = function(song) {
             if (currentBuzzObject) {
-                currentBuzzObject.stop();
-                stopSong(songPlayer.currentSong);
+                stopSong(SongPlayer.currentSong);
             }
             
             currentBuzzObject = new buzz.sound(song.audioUrl, {
@@ -20,9 +16,15 @@
                 preload: true
             });
             
+            currentBuzzObject.bind('timeupdate', function() {
+                $rootScope.$apply(function() {
+                    SongPlayer.currentTime = currentBuzzObject.getTime();
+                });
+            });
+            
             SongPlayer.currentSong = song;
         };
-        
+
         var playSong = function(song) {
             currentBuzzObject.play();
             song.playing = true;
@@ -31,28 +33,35 @@
         var stopSong = function(song) {
             currentBuzzObject.stop();
             song.playing = null;
-        }
+        };
         
+
         var getSongIndex = function(song) {
             return currentAlbum.songs.indexOf(song);
         };
         
+
         SongPlayer.currentSong = null;
+
+        SongPlayer.currentTime = null;
         
+        SongPlayer.volume = 30;
+        
+
         SongPlayer.play = function(song) {
             song = song || SongPlayer.currentSong;
-            if (currentSong !== song) {
-                setSong(song);
-                currentBuzzObject.play();
-                song.playing = true;
+            if (SongPlayer.currentSong !== song) {
                 
-            } else if (currentSong === song) {
+                setSong(song);
+                playSong(song);
+                
+            } else if (SongPlayer.currentSong === song) {
                 if (currentBuzzObject.isPaused()) {
-                    currentBuzzObject.play();
+                    playSong(song);
                 }
             }
         };
-        
+
         SongPlayer.pause = function(song) {
             song = song || SongPlayer.currentSong;
             currentBuzzObject.pause();
@@ -63,25 +72,38 @@
             var currentSongIndex = getSongIndex(SongPlayer.currentSong);
             currentSongIndex--;
             
-            if (currentSongIndex < 0 ) {
-                stopSong(SongPlayer.currentSong); 
-            }else {
+            if (currentSongIndex < 0) {
+                stopSong(SongPlayer.currentSong);
+            } else {
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
                 playSong(song);
             }
         };
         
-        songPlayer.next = function() {
+
+        SongPlayer.next = function() {
             var currentSongIndex = getSongIndex(SongPlayer.currentSong);
             currentSongIndex++;
             
-            if(currentSongIndex > currentAlbum.songs.length) {
+            if (currentSongIndex > currentAlbum.songs.length) {
                 stopSong(SongPlayer.currentSong);
-            }else {
+            } else {
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
                 playSong(song);
+            }
+        };
+
+        SongPlayer.setCurrentTime = function(time) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setTime(time);
+            }
+        };
+
+        SongPlayer.setVolume = function(volume) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setVolume(volume);
             }
         };
         
@@ -90,5 +112,5 @@
     
     angular
         .module('blocJams')
-        .factory('SongPlayer',['Fixtures', SongPlayer]);
+        .factory('SongPlayer', ['$rootScope', 'Fixtures', SongPlayer]);
 })();
